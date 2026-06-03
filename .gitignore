@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.env
+data/processed/*.json
+!experiments/results.json
+data/evaluation/*.json
+Hackathon Assignment_ Healthcare AI Assistant Using RAG and LLMs (1).pdf
+docs
