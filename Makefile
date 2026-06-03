@@ -1,4 +1,4 @@
-.PHONY: run ingest evaluate test docker-up docker-down
+.PHONY: run ingest evaluate test up down
 
 run:
 	uv run uvicorn apps.api.main:app --reload --host 0.0.0.0 --port 8000
@@ -12,8 +12,8 @@ evaluate:
 test:
 	uv run pytest
 
-docker-up:
+up:
 	docker compose up --build
 
-docker-down:
+down:
 	docker compose down
