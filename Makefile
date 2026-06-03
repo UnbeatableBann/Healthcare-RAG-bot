@@ -12,6 +12,9 @@ evaluate:
 test:
 	uv run pytest
 
+login:
+	docker login
+
 up:
 	docker compose up --build
 
