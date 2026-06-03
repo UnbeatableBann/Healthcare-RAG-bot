@@ -1,10 +1,6 @@
 # Healthcare RAG Bot
 
-Production-Oriented Healthcare AI Assistant built using an **Agentic Hybrid RAG with Enhanced Retrieval** architecture.
-
-Repository:
-
-https://github.com/UnbeatableBann/Healthcare-RAG-bot
+Healthcare AI Assistant built using an **Agentic Hybrid RAG with Enhanced Retrieval** architecture.
 
 ---
 
@@ -137,27 +133,6 @@ flowchart TD
 
     M --> P[Grounded Response + Citations]
 ```
-
----
-
-# Retrieval Pipeline
-
-```mermaid
-flowchart LR
-
-Q[Question]
---> R[Query Rewriting]
---> MQ[Multi Query Generation]
---> HR[Hybrid Retrieval]
---> RRF[RRF Fusion]
---> DD[Deduplication]
---> RR[Reranker]
---> CRAG[CRAG Validation]
---> GEN[LLM Generation]
---> RESP[Answer]
-```
-
----
 
 # Chunking Architecture
 
