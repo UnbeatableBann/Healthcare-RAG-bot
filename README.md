@@ -2,8 +2,6 @@
 
 Healthcare AI Assistant built using an **Agentic Hybrid RAG with Enhanced Retrieval** architecture.
 
----
-
 # Overview
 
 Healthcare RAG Bot is a healthcare-focused AI assistant designed to answer questions from healthcare operational and compliance documents using Retrieval-Augmented Generation (RAG).
@@ -25,8 +23,6 @@ The system goes beyond a basic RAG implementation by incorporating:
 
 The goal is to generate grounded responses while minimizing hallucinations and providing source citations.
 
----
-
 # Features
 
 ## Document Ingestion
@@ -36,8 +32,6 @@ The goal is to generate grounded responses while minimizing hallucinations and p
 * Multiple chunking strategies
 * Embedding generation
 * Vector indexing in Qdrant
-
----
 
 ## Enhanced Retrieval
 
@@ -49,8 +43,6 @@ The goal is to generate grounded responses while minimizing hallucinations and p
 * Hybrid search
 * Reciprocal Rank Fusion (RRF)
 
----
-
 ## Advanced Retrieval Validation
 
 * Heuristic retrieval evaluation
@@ -58,16 +50,12 @@ The goal is to generate grounded responses while minimizing hallucinations and p
 * Hallucination prevention
 * Confidence scoring
 
----
-
 ## Agent Workflow
 
 * Appointment routing
 * Tool execution
 * RAG execution
 * Intent-based orchestration
-
----
 
 ## Evaluation
 
@@ -77,16 +65,12 @@ The goal is to generate grounded responses while minimizing hallucinations and p
 * Faithfulness
 * Answer Relevancy
 
----
-
 ## Deployment
 
 * Docker
 * Docker Compose
 * Prometheus
 * Grafana
-
----
 
 # Architecture
 
@@ -146,16 +130,12 @@ Used for:
 * FAQs
 * Guidelines
 
----
-
 ## Semantic Chunking
 
 Used for:
 
 * Long healthcare articles
 * Educational documents
-
----
 
 ## Contextual Chunking
 
@@ -164,8 +144,6 @@ Used for:
 * Procedures
 * Workflows
 * Multi-step instructions
-
----
 
 ## Hybrid Chunking
 
@@ -176,8 +154,6 @@ Example:
 * Policies → Recursive
 * Procedures → Contextual
 * Articles → Semantic
-
----
 
 # Project Structure
 
@@ -203,8 +179,6 @@ healthcare-ai-assistant/
 └── README.md
 ```
 
----
-
 # Setup Instructions
 
 ## Prerequisites
@@ -216,8 +190,6 @@ Install:
 * Docker Compose
 * Ollama
 
----
-
 ## Clone Repository
 
 ```bash
@@ -225,8 +197,6 @@ git clone https://github.com/UnbeatableBann/Healthcare-RAG-bot.git
 
 cd Healthcare-RAG-bot
 ```
-
----
 
 ## Create Virtual Environment
 
@@ -244,15 +214,11 @@ Windows:
 .venv\Scripts\activate
 ```
 
----
-
 ## Install Dependencies
 
 ```bash
 uv sync
 ```
-
----
 
 ## Configure Environment
 
@@ -282,8 +248,6 @@ RERANKER_PROVIDER=bge
 RERANKER_MODEL=BAAI/bge-reranker-base
 ```
 
----
-
 # Pull Local LLM
 
 Example:
@@ -292,15 +256,11 @@ Example:
 ollama pull llama3.1:8b
 ```
 
----
-
 # Run Qdrant
 
 ```bash
 docker run -p 6333:6333 qdrant/qdrant
 ```
-
----
 
 # Ingest Documents
 
@@ -308,23 +268,17 @@ docker run -p 6333:6333 qdrant/qdrant
 python scripts/ingest.py
 ```
 
----
-
 # Run Application
 
 ```bash
 uvicorn apps.api.main:app --reload
 ```
 
----
-
 # API Documentation
 
 ```text
 http://localhost:8000/docs
 ```
-
----
 
 # Docker Setup
 
@@ -334,15 +288,11 @@ http://localhost:8000/docs
 docker compose build
 ```
 
----
-
 ## Run
 
 ```bash
 docker compose up -d
 ```
-
----
 
 ## Services
 
@@ -352,8 +302,6 @@ Qdrant      : 6333
 Prometheus  : 9090
 Grafana     : 3000
 ```
-
----
 
 # API Examples
 
@@ -372,8 +320,6 @@ Response:
 }
 ```
 
----
-
 ## Ingest Documents
 
 ```bash
@@ -390,8 +336,6 @@ Response:
   "chunks": 432
 }
 ```
-
----
 
 ## Ask Question
 
@@ -421,8 +365,6 @@ Response:
 }
 ```
 
----
-
 # Sample Questions
 
 ## Question
@@ -437,8 +379,6 @@ Answer:
 Yes. Eligible refill requests may be reviewed during telehealth consultations depending on medication requirements and provider assessment.
 ```
 
----
-
 ## Question
 
 ```text
@@ -450,8 +390,6 @@ Answer:
 ```text
 Appointments may be cancelled through the patient portal, by phone, or by contacting the scheduling department before the cancellation deadline.
 ```
-
----
 
 ## Question
 
@@ -465,8 +403,6 @@ Answer:
 Coverage depends on the patient's insurance plan. Patients should verify telehealth coverage during insurance eligibility checks.
 ```
 
----
-
 ## Question
 
 ```text
@@ -478,8 +414,6 @@ Answer:
 ```text
 I could not find this information in the provided documents.
 ```
-
----
 
 # Dataset Details
 
@@ -518,8 +452,6 @@ Patient Portal
 HIPAA Guidelines
 ```
 
----
-
 # LLM Used
 
 Default:
@@ -541,8 +473,6 @@ Reason:
 * Good instruction following
 * Suitable for RAG
 
----
-
 # Embedding Model
 
 Default:
@@ -558,8 +488,6 @@ Reason:
 * Fast inference
 * Excellent RAG performance
 
----
-
 # Vector Database
 
 ```text
@@ -572,8 +500,6 @@ Reason:
 * Metadata filtering
 * Production-ready
 * Fast similarity search
-
----
 
 # Prompting Strategy
 
@@ -590,8 +516,6 @@ If sufficient evidence is unavailable:
 ```text
 I could not find this information in the provided documents.
 ```
-
----
 
 # Agent Workflow
 
@@ -616,8 +540,6 @@ RAG Pipeline
 
 This keeps the system simple and explainable.
 
----
-
 # Evaluation
 
 RAGAS metrics:
@@ -639,8 +561,6 @@ Results are stored in:
 evaluation/reports/
 ```
 
----
-
 # Experiment Tracking
 
 Results are stored in:
@@ -659,8 +579,6 @@ Tracked information:
 * Latency
 * Timestamp
 
----
-
 # Unit Tests
 
 Run:
@@ -677,8 +595,6 @@ Coverage includes:
 * Agent
 * CRAG Components
 
----
-
 # Integration Tests
 
 Run:
@@ -692,8 +608,6 @@ Coverage includes:
 * Qdrant
 * Ollama
 * Retrieval Pipeline
-
----
 
 # End-to-End Tests
 
@@ -717,8 +631,6 @@ Generation
 Response
 ```
 
----
-
 # Limitations
 
 Current limitations:
@@ -729,8 +641,6 @@ Current limitations:
 * Local deployment focus
 * No authentication
 * No user management
-
----
 
 # Future Improvements
 
