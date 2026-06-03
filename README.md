@@ -1,77 +1,81 @@
-# Healthcare AI Assistant
+# Healthcare RAG Bot
 
-Production-Grade Agentic Hybrid RAG System for Healthcare Knowledge Management
+Production-Oriented Healthcare AI Assistant built using an **Agentic Hybrid RAG with Enhanced Retrieval** architecture.
+
+Repository:
+
+https://github.com/UnbeatableBann/Healthcare-RAG-bot
 
 ---
 
 # Overview
 
-Healthcare AI Assistant is a healthcare-focused Retrieval-Augmented Generation (RAG) platform designed to answer user questions using only information available in a healthcare knowledge base.
+Healthcare RAG Bot is a healthcare-focused AI assistant designed to answer questions from healthcare operational and compliance documents using Retrieval-Augmented Generation (RAG).
 
-The system combines:
+The system goes beyond a basic RAG implementation by incorporating:
 
-* Agentic Routing
 * Hybrid Retrieval (Dense + Sparse)
 * Query Rewriting
 * Multi Query Retrieval
-* Advanced Chunking Strategies
-* Reranking
+* Deduplication
+* Reciprocal Rank Fusion (RRF)
+* Cross-Encoder Reranking
 * CRAG-Inspired Retrieval Validation
+* LLM-as-a-Judge
+* Agent-Based Routing
 * Local LLM Support
 * RAGAS Evaluation
-* Dockerized Deployment
+* Observability and Monitoring
 
-The primary objective is to generate grounded answers while minimizing hallucinations and providing source citations.
+The goal is to generate grounded responses while minimizing hallucinations and providing source citations.
 
 ---
 
 # Features
 
-## Knowledge Base Ingestion
+## Document Ingestion
 
 * Markdown document ingestion
 * Metadata extraction
 * Multiple chunking strategies
-* Vector embedding generation
-* Qdrant vector storage
+* Embedding generation
+* Vector indexing in Qdrant
 
 ---
 
-## Advanced Retrieval
+## Enhanced Retrieval
 
-* Dense Retrieval
-* Sparse Retrieval (BM25)
-* Reciprocal Rank Fusion (RRF)
-* Query Rewriting
-* Multi Query Retrieval
+* Query rewriting
+* Multi-query retrieval
+* Dense retrieval
+* Sparse retrieval
 * Deduplication
+* Hybrid search
+* Reciprocal Rank Fusion (RRF)
 
 ---
 
-## Retrieval Validation
+## Advanced Retrieval Validation
 
-CRAG-inspired validation:
-
-* Heuristic confidence scoring
+* Heuristic retrieval evaluation
 * LLM-as-a-Judge validation
 * Hallucination prevention
+* Confidence scoring
 
 ---
 
-## Agentic Workflow
+## Agent Workflow
 
-Single-agent architecture supporting:
-
-* Knowledge-base questions
-* Appointment-related tool requests
-* Healthcare policy queries
+* Appointment routing
+* Tool execution
+* RAG execution
+* Intent-based orchestration
 
 ---
 
 ## Evaluation
 
-RAGAS-based evaluation:
-
+* RAGAS evaluation
 * Context Precision
 * Context Recall
 * Faithfulness
@@ -79,81 +83,124 @@ RAGAS-based evaluation:
 
 ---
 
-## Observability
+## Deployment
 
-* Loguru Logging
-* Prometheus Metrics
-* Grafana Dashboards
+* Docker
+* Docker Compose
+* Prometheus
+* Grafana
 
 ---
 
-# Architecture Overview
+# Architecture
 
-The system follows an Agentic Hybrid RAG architecture.
+## Agentic Hybrid RAG with Enhanced Retrieval
 
-```text
-User
- │
- ▼
-FastAPI
- │
- ▼
-Healthcare Agent
- │
- ├── Tool Route
- │
- └── RAG Route
-        │
-        ▼
- Query Processing
-        │
-        ├── Query Rewriting
-        ├── Multi Query Generation
-        └── Deduplication
-                │
-                ▼
-         Hybrid Retrieval
-                │
-      ┌─────────┴─────────┐
-      ▼                   ▼
- Dense Search       Sparse Search
- (Qdrant)              (BM25)
-      │                   │
-      └─────────┬─────────┘
-                ▼
-             RRF Fusion
-                ▼
-             Reranker
-                ▼
-               CRAG
-                ▼
-         LLM Generation
-                ▼
-            Response
+```mermaid
+flowchart TD
+
+    A[User Question]
+
+    A --> B[Healthcare Agent]
+
+    B --> C{Tool or RAG}
+
+    C -->|Tool| D[Appointment Tool]
+
+    C -->|RAG| E[Query Rewriting]
+
+    E --> F[Multi Query Generation]
+
+    F --> G[Dense Retrieval]
+
+    F --> H[Sparse Retrieval BM25]
+
+    G --> I[RRF Fusion]
+
+    H --> I
+
+    I --> J[Deduplication]
+
+    J --> K[Reranker]
+
+    K --> L[CRAG Validation]
+
+    L -->|High Confidence| M[LLM Generation]
+
+    L -->|Medium Confidence| N[LLM Judge]
+
+    N -->|Answerable| M
+
+    N -->|Not Answerable| O[Reject Response]
+
+    L -->|Low Confidence| O
+
+    M --> P[Grounded Response + Citations]
 ```
 
-A detailed architecture diagram is provided separately.
+---
+
+# Retrieval Pipeline
+
+```mermaid
+flowchart LR
+
+Q[Question]
+--> R[Query Rewriting]
+--> MQ[Multi Query Generation]
+--> HR[Hybrid Retrieval]
+--> RRF[RRF Fusion]
+--> DD[Deduplication]
+--> RR[Reranker]
+--> CRAG[CRAG Validation]
+--> GEN[LLM Generation]
+--> RESP[Answer]
+```
 
 ---
 
-# Technology Stack
+# Chunking Architecture
 
-| Layer            | Technology   |
-| ---------------- | ------------ |
-| Backend          | FastAPI      |
-| Language         | Python 3.12  |
-| Validation       | Pydantic v2  |
-| Agent            | LangGraph    |
-| Vector Database  | Qdrant       |
-| LLM              | Ollama       |
-| Embeddings       | BGE          |
-| Reranking        | BGE Reranker |
-| Metrics          | Prometheus   |
-| Monitoring       | Grafana      |
-| Testing          | Pytest       |
-| Evaluation       | RAGAS        |
-| Packaging        | uv           |
-| Containerization | Docker       |
+The ingestion pipeline supports multiple chunking strategies.
+
+## Recursive Chunking
+
+Used for:
+
+* Policies
+* FAQs
+* Guidelines
+
+---
+
+## Semantic Chunking
+
+Used for:
+
+* Long healthcare articles
+* Educational documents
+
+---
+
+## Contextual Chunking
+
+Used for:
+
+* Procedures
+* Workflows
+* Multi-step instructions
+
+---
+
+## Hybrid Chunking
+
+Document-aware chunking.
+
+Example:
+
+* Policies → Recursive
+* Procedures → Contextual
+* Articles → Semantic
 
 ---
 
@@ -166,14 +213,14 @@ healthcare-ai-assistant/
 ├── core/
 ├── agent/
 ├── rag/
-├── llm/
 ├── embeddings/
+├── llm/
 ├── rerankers/
 ├── vectorstores/
 ├── evaluation/
 ├── experiments/
-├── data/
 ├── tests/
+├── data/
 ├── scripts/
 ├── Dockerfile
 ├── docker-compose.yml
@@ -199,24 +246,20 @@ Install:
 ## Clone Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/UnbeatableBann/Healthcare-RAG-bot.git
 
-cd healthcare-ai-assistant
+cd Healthcare-RAG-bot
 ```
 
 ---
 
-## Create Environment
+## Create Virtual Environment
 
 Using uv:
 
 ```bash
-uv sync
-```
+uv venv
 
-Activate environment:
-
-```bash
 source .venv/bin/activate
 ```
 
@@ -224,6 +267,14 @@ Windows:
 
 ```bash
 .venv\Scripts\activate
+```
+
+---
+
+## Install Dependencies
+
+```bash
+uv sync
 ```
 
 ---
@@ -245,19 +296,22 @@ API_HOST=0.0.0.0
 API_PORT=8000
 
 QDRANT_URL=http://localhost:6333
-QDRANT_COLLECTION=healthcare_documents
 
 LLM_PROVIDER=ollama
 LLM_MODEL=llama3.1:8b
 
+EMBEDDING_PROVIDER=bge
 EMBEDDING_MODEL=BAAI/bge-small-en-v1.5
 
+RERANKER_PROVIDER=bge
 RERANKER_MODEL=BAAI/bge-reranker-base
 ```
 
 ---
 
-## Pull LLM
+# Pull Local LLM
+
+Example:
 
 ```bash
 ollama pull llama3.1:8b
@@ -265,27 +319,31 @@ ollama pull llama3.1:8b
 
 ---
 
-# Running Locally
-
-Start Qdrant:
+# Run Qdrant
 
 ```bash
 docker run -p 6333:6333 qdrant/qdrant
 ```
 
-Run API:
+---
+
+# Ingest Documents
 
 ```bash
-uv run uvicorn apps.api.main:app --reload
+python scripts/ingest.py
 ```
 
-Application:
+---
 
-```text
-http://localhost:8000
+# Run Application
+
+```bash
+uvicorn apps.api.main:app --reload
 ```
 
-Swagger:
+---
+
+# API Documentation
 
 ```text
 http://localhost:8000/docs
@@ -293,43 +351,45 @@ http://localhost:8000/docs
 
 ---
 
-# Docker Deployment
+# Docker Setup
 
-Build:
+## Build
 
 ```bash
 docker compose build
 ```
 
-Start:
+---
+
+## Run
 
 ```bash
 docker compose up -d
 ```
 
-Services:
+---
 
-| Service    | Port |
-| ---------- | ---- |
-| FastAPI    | 8000 |
-| Qdrant     | 6333 |
-| Prometheus | 9090 |
-| Grafana    | 3000 |
+## Services
+
+```text
+FastAPI     : 8000
+Qdrant      : 6333
+Prometheus  : 9090
+Grafana     : 3000
+```
 
 ---
 
-# API Endpoints
+# API Examples
 
 ## Health Check
 
-### Request
-
 ```bash
 curl -X GET \
-http://localhost:8000/api/v1/health
+"http://localhost:8000/api/v1/health"
 ```
 
-### Response
+Response:
 
 ```json
 {
@@ -341,20 +401,18 @@ http://localhost:8000/api/v1/health
 
 ## Ingest Documents
 
-### Request
-
 ```bash
 curl -X POST \
-http://localhost:8000/api/v1/ingest
+"http://localhost:8000/api/v1/ingest"
 ```
 
-### Response
+Response:
 
 ```json
 {
   "status": "success",
   "documents": 10,
-  "chunks": 845
+  "chunks": 432
 }
 ```
 
@@ -362,22 +420,20 @@ http://localhost:8000/api/v1/ingest
 
 ## Ask Question
 
-### Request
-
 ```bash
 curl -X POST \
-http://localhost:8000/api/v1/ask \
+"http://localhost:8000/api/v1/ask" \
 -H "Content-Type: application/json" \
 -d '{
-  "question":"Can patients request medication refills through telehealth?"
+  "question":"Can a patient request medication refills through telehealth?"
 }'
 ```
 
-### Response
+Response:
 
 ```json
 {
-  "answer":"Patients may request medication refills through telehealth consultations if the medication qualifies for refill review and does not require an in-person assessment.",
+  "answer":"Patients may request medication refills through telehealth consultations if the medication is eligible for refill and does not require an in-person evaluation.",
   "sources":[
     {
       "document":"medication_refill_policy.md"
@@ -392,65 +448,57 @@ http://localhost:8000/api/v1/ask \
 
 ---
 
-# Sample Questions and Responses
+# Sample Questions
 
-## Example 1
-
-Question:
+## Question
 
 ```text
 Can patients request medication refills through telehealth?
 ```
 
-Expected:
+Answer:
 
 ```text
-Yes. Eligible refill requests may be reviewed during telehealth consultations according to the Medication Refill Policy and Telehealth Consultation Guidelines.
+Yes. Eligible refill requests may be reviewed during telehealth consultations depending on medication requirements and provider assessment.
 ```
 
 ---
 
-## Example 2
-
-Question:
+## Question
 
 ```text
-How can a patient reschedule an appointment?
+How can patients cancel appointments?
 ```
 
-Expected:
+Answer:
 
 ```text
-Appointments may be rescheduled through the patient portal, by phone, or through approved scheduling channels.
-```
-
----
-
-## Example 3
-
-Question:
-
-```text
-Are telehealth visits covered by insurance?
-```
-
-Expected:
-
-```text
-Coverage depends on the patient's insurance plan. Eligibility and coverage verification should be confirmed prior to the appointment.
+Appointments may be cancelled through the patient portal, by phone, or by contacting the scheduling department before the cancellation deadline.
 ```
 
 ---
 
-## Example 4
-
-Question:
+## Question
 
 ```text
-Can I take ibuprofen with warfarin?
+Does insurance cover telehealth visits?
 ```
 
-Expected:
+Answer:
+
+```text
+Coverage depends on the patient's insurance plan. Patients should verify telehealth coverage during insurance eligibility checks.
+```
+
+---
+
+## Question
+
+```text
+What medication should I take for diabetes?
+```
+
+Answer:
 
 ```text
 I could not find this information in the provided documents.
@@ -460,46 +508,50 @@ I could not find this information in the provided documents.
 
 # Dataset Details
 
-The dataset is entirely synthetic.
+All documents are synthetic.
 
-No real patient information, PHI, or healthcare records are used.
+No real patient data is used.
 
-Documents include:
+Dataset topics:
+
+* Patient Discharge Instructions
+* Appointment Scheduling Policy
+* Insurance Eligibility FAQ
+* HIPAA Privacy Guidelines
+* Medication Refill Policy
+* Telehealth Consultation Guidelines
+* Urgent Care Services
+* Prescription Management Policy
+* Patient Portal Usage Guide
+* Billing and Payments Policy
+
+The dataset is intentionally designed with overlapping concepts to evaluate retrieval quality.
+
+Examples:
 
 ```text
-patient_discharge_instructions.md
+Medication Refill Policy
+↔
+Telehealth Guidelines
 
-appointment_scheduling_policy.md
+Insurance FAQ
+↔
+Billing Policy
 
-insurance_eligibility_faq.md
-
-hipaa_privacy_guidelines.md
-
-medication_refill_policy.md
-
-telehealth_consultation_guidelines.md
-
-urgent_care_services.md
-
-prescription_management_policy.md
-
-patient_portal_usage_guide.md
-
-billing_and_payments_policy.md
+Patient Portal
+↔
+HIPAA Guidelines
 ```
-
-Total corpus size:
-
-* ~10 documents
-* ~10,000–15,000 words
-
-The dataset intentionally contains overlapping concepts to improve retrieval evaluation.
 
 ---
 
 # LLM Used
 
-## Llama 3.1 8B
+Default:
+
+```text
+Llama 3.1 8B
+```
 
 Provider:
 
@@ -509,49 +561,54 @@ Ollama
 
 Reason:
 
-* Strong instruction following
-* Good local inference quality
-* Open-source
-* Easy deployment
+* Local deployment
+* No external API dependency
+* Good instruction following
+* Suitable for RAG
 
 ---
 
-# Embedding Model Used
+# Embedding Model
 
-## BAAI/bge-small-en-v1.5
+Default:
+
+```text
+BAAI/bge-small-en-v1.5
+```
 
 Reason:
 
-* Strong retrieval performance
+* Strong retrieval quality
+* Lightweight
 * Fast inference
-* Low resource requirements
-* Well-suited for semantic search
+* Excellent RAG performance
 
 ---
 
-# Vector Database Used
+# Vector Database
 
-## Qdrant
+```text
+Qdrant
+```
 
 Reason:
 
+* Dense retrieval
+* Metadata filtering
 * Production-ready
-* Fast vector search
-* Hybrid retrieval support
-* Metadata filtering support
-* Docker-friendly
+* Fast similarity search
 
 ---
 
 # Prompting Strategy
 
-The generation prompt enforces:
+The assistant is instructed to:
 
 * Answer only from retrieved context
-* No unsupported claims
-* No guessing
-* Refuse missing information
-* Professional healthcare language
+* Refuse unsupported questions
+* Avoid hallucination
+* Provide citations
+* Maintain professional healthcare language
 
 If sufficient evidence is unavailable:
 
@@ -565,64 +622,35 @@ I could not find this information in the provided documents.
 
 Single-agent architecture.
 
+Routing logic:
+
 ```text
-User Question
-      ↓
+Question
+     ↓
 Intent Detection
-      ↓
-Tool or RAG
+     ↓
+
+Appointment Query?
+     ↓
+Appointment Tool
+
+Otherwise
+     ↓
+RAG Pipeline
 ```
 
-Examples:
-
-| Query                    | Route |
-| ------------------------ | ----- |
-| Book appointment         | Tool  |
-| Appointment availability | Tool  |
-| Telehealth policy        | RAG   |
-| HIPAA question           | RAG   |
+This keeps the system simple and explainable.
 
 ---
 
-# Unit Tests
+# Evaluation
 
-Coverage includes:
+RAGAS metrics:
 
-## Chunking
-
-* Recursive chunking
-* Semantic chunking
-* Contextual chunking
-* Hybrid chunking
-
-## Query Processing
-
-* Query rewriting
-* Multi query generation
-* Deduplication
-
-## Retrieval
-
-* Dense retrieval
-* Sparse retrieval
-* Hybrid retrieval
-
-## Reranking
-
-* Reranker scoring
-
-## CRAG
-
-* Heuristic evaluation
-* LLM Judge
-
-## Agent
-
-* Routing behavior
-
----
-
-# Evaluation Script
+* Context Precision
+* Context Recall
+* Faithfulness
+* Answer Relevancy
 
 Run:
 
@@ -630,50 +658,120 @@ Run:
 python scripts/evaluate.py
 ```
 
-Metrics:
-
-* Context Precision
-* Context Recall
-* Faithfulness
-* Answer Relevancy
-
 Results are stored in:
 
 ```text
 evaluation/reports/
 ```
 
-and
+---
+
+# Experiment Tracking
+
+Results are stored in:
 
 ```text
 experiments/results.json
 ```
 
+Tracked information:
+
+* LLM
+* Embedding Model
+* Reranker
+* Chunking Strategy
+* RAGAS Scores
+* Latency
+* Timestamp
+
 ---
 
-# Current Limitations
+# Unit Tests
 
-* Synthetic dataset only
-* English-only documents
+Run:
+
+```bash
+pytest tests/unit
+```
+
+Coverage includes:
+
+* Chunkers
+* Embeddings
+* Rerankers
+* Agent
+* CRAG Components
+
+---
+
+# Integration Tests
+
+Run:
+
+```bash
+pytest tests/integration
+```
+
+Coverage includes:
+
+* Qdrant
+* Ollama
+* Retrieval Pipeline
+
+---
+
+# End-to-End Tests
+
+Run:
+
+```bash
+pytest tests/e2e
+```
+
+Coverage includes:
+
+```text
+API
+↓
+Agent
+↓
+Retrieval
+↓
+Generation
+↓
+Response
+```
+
+---
+
+# Limitations
+
+Current limitations:
+
 * Single-agent architecture
+* Small synthetic dataset
+* English-only dataset
+* Local deployment focus
 * No authentication
 * No user management
-* No PHI detection
-* No access control
 
 ---
 
 # Future Improvements
 
-* Authentication and RBAC
-* PHI detection
-* Advanced guardrails
+Potential future enhancements:
+
+* Multi-agent workflows
+* JWT Authentication
+* RBAC
 * Multi-tenant support
 * Document versioning
-* Knowledge graph integration
-* GraphRAG
-* Human feedback workflows
+* Human feedback loops
 * Kubernetes deployment
-* CI/CD automation
+* Advanced observability
+* Production CI/CD pipelines
+* Knowledge Graph Integration
+* GraphRAG
 
----
+``` text
+```
