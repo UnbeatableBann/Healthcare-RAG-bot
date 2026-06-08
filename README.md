@@ -654,9 +654,10 @@ Potential future enhancements:
 * Human feedback loops
 * Kubernetes deployment
 * Advanced observability
-* Production CI/CD pipelines
+* Secure Document Ingestion
 * Knowledge Graph Integration
-* GraphRAG
+* Prevent Retrieval Poisoning
+* Prompt Injection Defense
 
 ``` text
 ```
