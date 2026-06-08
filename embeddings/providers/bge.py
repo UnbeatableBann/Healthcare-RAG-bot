@@ -32,7 +32,7 @@ class BGEEmbedding(BaseEmbedding):
         if settings.EMBEDDING_DEVICE:
             model_kwargs["device"] = settings.EMBEDDING_DEVICE
         self._model = SentenceTransformer(self.model_name, **model_kwargs)
-        self.dimensions = int(self._model.get_sentence_embedding_dimension() or 0)
+        self.dimensions = int(self._model.get_embedding_dimension() or 0)
 
     def embed_texts(self, texts: list[str]) -> list[list[float]]:
         """Embed documents using normalized dense vectors."""

@@ -6,7 +6,7 @@ from collections.abc import Iterator
 from contextlib import contextmanager
 from time import perf_counter
 
-from prometheus_client import CONTENT_TYPE_LATEST, Counter, Histogram, generate_latest
+from prometheus_client import Counter, Histogram, generate_latest
 
 API_REQUESTS_TOTAL = Counter(
     "api_requests_total",

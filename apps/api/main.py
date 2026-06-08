@@ -40,8 +40,6 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             "knowledge management."
         ),
         docs_url=f"{resolved_settings.API_PREFIX}/docs",
-        redoc_url=f"{resolved_settings.API_PREFIX}/redoc",
-        openapi_url=f"{resolved_settings.API_PREFIX}/openapi.json",
     )
 
     app.state.settings = resolved_settings
