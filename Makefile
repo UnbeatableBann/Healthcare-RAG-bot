@@ -1,4 +1,4 @@
-.PHONY: run ingest evaluate test up down
+.PHONY: run ingest evaluate test up down no-cache
 
 run:
 	uv run uvicorn apps.api.main:app --reload --host 0.0.0.0 --port 8000
@@ -20,3 +20,6 @@ up:
 
 down:
 	docker compose down
+
+no-cache:
+	docker compose build --no-cache
