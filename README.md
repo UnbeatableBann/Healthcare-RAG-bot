@@ -1,3 +1,4 @@
+<!-- markdownlint-disable-file MD025 , MD024-->
 # Healthcare RAG Bot
 
 Healthcare AI Assistant built using an **Agentic Hybrid RAG with Enhanced Retrieval** architecture.
